@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HarumiMascot } from "@/components/HarumiMascot";
 import { StatCard } from "@/components/StatCard";
 import { Panel } from "@/components/Panel";
+import { FeatureCard } from "@/components/FeatureCard";
 import { Icons, type IconName } from "@/components/Icons";
 import { commandCategories } from "@/lib/commands";
 import { prisma } from "@/lib/prisma";
@@ -158,16 +159,14 @@ export default async function HomePage() {
         <p className="font-display text-2xl text-ink">O que ela faz por você</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {features.map((feature) => (
-            <Panel
+            <FeatureCard
               key={feature.id}
               icon={feature.icon}
-              iconColor={feature.iconColor}
-              iconBg={feature.iconBg}
+              color={feature.iconColor}
               title={feature.title}
-              className={`${feature.span} transition hover:shadow-card`}
-            >
-              <p className="text-sm text-inkSoft">{feature.text}</p>
-            </Panel>
+              text={feature.text}
+              className={feature.span}
+            />
           ))}
         </div>
       </section>

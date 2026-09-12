@@ -5,10 +5,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#150818",
-        surface: "#1E1027",
-        surfaceMuted: "#2A1534",
-        border: "#3D2247",
+        bg: "#0A0A0C",
+        surface: "#131316",
+        surfaceMuted: "#1C1C20",
+        border: "#2A2A30",
         sakura: "#FF6FA8",
         sakuraDark: "#E24E86",
         rose: "#FFA9D3",
@@ -16,8 +16,8 @@ const config: Config = {
         petal: "#FFD6E8",
         mint: "#5EEAD4",
         coral: "#FF8FA3",
-        ink: "#F9EEF6",
-        inkSoft: "#C2A7CB",
+        ink: "#F5F5F7",
+        inkSoft: "#9C9CA6",
       },
       fontFamily: {
         display: ["var(--font-fredoka)"],
