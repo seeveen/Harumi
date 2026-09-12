@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { getAvatarUrl } from "@/lib/discord";
+import { Panel } from "@/components/Panel";
+import { NumberedRow } from "@/components/NumberedRow";
 import { Icons } from "@/components/Icons";
 
 export const revalidate = 0; // sempre busca dados reais e atuais
@@ -15,50 +17,51 @@ export default async function RankingPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <p className="font-display text-3xl text-ink">Ranking</p>
-      <p className="mt-2 text-inkSoft">
-        Os membros com mais moedas depois de entrar no site. Quando a Harumi
-        estiver rodando no seu servidor, esse ranking passa a refletir a
-        economia real de lá também.
-      </p>
+      <Panel
+        icon="trophy"
+        title="Ranking"
+        subtitle="Os membros com mais moedas no site"
+      >
+        <p className="text-sm text-inkSoft">
+          Quando a Harumi estiver rodando no seu servidor, esse ranking passa
+          a refletir a economia real de lá também.
+        </p>
 
-      <div className="mt-8 space-y-3">
-        {top.length === 0 && (
-          <p className="flex items-center gap-2 rounded-2xl bg-surface p-6 text-inkSoft shadow-glow">
-            <Icons.flower className="h-5 w-5 shrink-0 text-sakura" strokeWidth={2.25} />
-            Ainda ninguém entrou. Seja a primeira pessoa a aparecer aqui —
-            entre com o Discord no canto superior direito.
-          </p>
-        )}
-
-        {top.map((member, index) => (
-          <div
-            key={member.id}
-            className="flex items-center gap-4 rounded-2xl bg-surface p-4 shadow-glow"
-          >
-            <span className="w-6 text-center font-display text-lg text-rose">
-              {index + 1}
-            </span>
-            <Image
-              src={getAvatarUrl(member.discordId, member.avatar)}
-              alt={member.globalName ?? member.username}
-              width={44}
-              height={44}
-              className="rounded-full"
-            />
-            <div className="flex-1">
-              <p className="font-medium text-ink">
-                {member.globalName ?? member.username}
-              </p>
-              <p className="text-xs text-inkSoft">nível {member.economy?.level}</p>
-            </div>
-            <p className="flex items-center gap-1.5 font-display text-lg text-sakura">
-              {member.economy?.balance}
-              <Icons.coin className="h-4 w-4" strokeWidth={2.25} />
+        <div className="mt-5 space-y-2.5">
+          {top.length === 0 && (
+            <p className="flex items-center gap-2 rounded-2xl bg-surfaceMuted p-6 text-inkSoft">
+              <Icons.flower className="h-5 w-5 shrink-0 text-sakura" strokeWidth={2.25} />
+              Ainda ninguém entrou. Seja a primeira pessoa a aparecer aqui —
+              entre com o Discord no canto superior direito.
             </p>
-          </div>
-        ))}
-      </div>
+          )}
+
+          {top.map((member, index) => (
+            <NumberedRow
+              key={member.id}
+              index={index + 1}
+              highlight={index === 0}
+              media={
+                <Image
+                  src={getAvatarUrl(member.discordId, member.avatar)}
+                  alt={member.globalName ?? member.username}
+                  width={36}
+                  height={36}
+                  className="rounded-full"
+                />
+              }
+              title={member.globalName ?? member.username}
+              subtitle={`nível ${member.economy?.level}`}
+              trailing={
+                <p className="flex shrink-0 items-center gap-1.5 font-display text-base text-sakura">
+                  {member.economy?.balance}
+                  <Icons.coin className="h-4 w-4" strokeWidth={2.25} />
+                </p>
+              }
+            />
+          ))}
+        </div>
+      </Panel>
     </div>
   );
 }

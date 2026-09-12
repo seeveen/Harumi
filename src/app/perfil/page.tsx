@@ -5,8 +5,11 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { fetchUserGuilds, getGuildIconUrl } from "@/lib/discord";
 import { StatCard } from "@/components/StatCard";
-import { ProgressBar } from "@/components/ProgressBar";
-import { Icons } from "@/components/Icons";
+import { Panel } from "@/components/Panel";
+import { MarkerProgress } from "@/components/MarkerProgress";
+import { ToggleRow } from "@/components/ToggleRow";
+import { NumberedRow } from "@/components/NumberedRow";
+import { IconButton } from "@/components/IconButton";
 
 export const revalidate = 0;
 
@@ -43,33 +46,44 @@ export default async function PerfilPage() {
   const level = member?.economy?.level ?? 1;
   const xp = member?.economy?.xp ?? 0;
   const xpParaProximoNivel = level * 100;
+  const percentXp = (xp / xpParaProximoNivel) * 100;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <div className="flex items-center gap-5 rounded-blob-lg bg-surface p-6 shadow-glow">
-        <Image
-          src={session.user.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
-          alt={session.user.name ?? "Seu avatar"}
-          width={80}
-          height={80}
-          className="rounded-full"
-        />
-        <div>
-          <p className="font-display text-2xl text-ink">
-            {session.user.name}
-          </p>
-          <p className="text-sm text-inkSoft">
-            Membro desde{" "}
-            {member?.createdAt.toLocaleDateString("pt-BR", {
-              day: "2-digit",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+    <div className="mx-auto max-w-3xl space-y-4 px-6 py-16">
+      <Panel
+        icon="sparkle"
+        title="Perfil"
+        subtitle="Suas estatísticas na Harumi"
+        actions={
+          <>
+            <IconButton icon="refresh" label="Atualizar" />
+            <IconButton icon="share" label="Compartilhar perfil" />
+          </>
+        }
+      >
+        <div className="flex items-center gap-5">
+          <Image
+            src={session.user.image ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
+            alt={session.user.name ?? "Seu avatar"}
+            width={72}
+            height={72}
+            className="rounded-full ring-2 ring-sakura/40"
+          />
+          <div>
+            <p className="font-display text-xl text-ink">{session.user.name}</p>
+            <p className="text-sm text-inkSoft">
+              Membro desde{" "}
+              {member?.createdAt.toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+          </div>
         </div>
-      </div>
+      </Panel>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-3">
         <StatCard
           icon="wallet"
           iconColor="#FF6FA8"
@@ -95,43 +109,64 @@ export default async function PerfilPage() {
         />
       </div>
 
-      <div className="mt-4">
-        <ProgressBar
-          label="Progresso de nível"
-          startLabel={`${xp} XP`}
-          goalLabel={`${xpParaProximoNivel} XP para o nível ${level + 1}`}
-          percent={(xp / xpParaProximoNivel) * 100}
+      <Panel icon="target" title="Progresso de nível" subtitle="Continue conversando pra evoluir">
+        <MarkerProgress
+          percent={percentXp}
+          markers={[
+            { label: "NÍVEL ATUAL", value: `${level}`, color: "#FFA9D3" },
+            { label: "XP ATUAL", value: `${xp}`, color: "#F9EEF6" },
+            { label: "PRÓXIMO NÍVEL", value: `${xpParaProximoNivel} XP`, color: "#5EEAD4" },
+          ]}
+          currentLabel="Faltam"
+          currentValue={`${Math.max(xpParaProximoNivel - xp, 0)} XP para o nível ${level + 1}`}
         />
-      </div>
+      </Panel>
 
-      <div className="mt-10">
-        <p className="font-display text-xl text-ink">Seus servidores</p>
-        <p className="mt-1 text-sm text-inkSoft">
-          Servidores do Discord em que você está, buscados em tempo real.
-        </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {guilds.map((guild) => {
+      <Panel icon="bell" title="Preferências" subtitle="Só neste navegador, é só visual por enquanto">
+        <div className="divide-y divide-border/60">
+          <ToggleRow
+            label="Notificar quando eu subir de nível"
+            description="Mostra um aviso flutuante ao bater a meta de XP."
+            defaultChecked
+          />
+          <ToggleRow
+            label="Mostrar meu perfil no ranking público"
+            description="Outros membros veem seu saldo e nível na página de ranking."
+            defaultChecked
+          />
+          <ToggleRow
+            label="Som ao completar uma meta diária"
+            description="Emite um som curto quando você recebe o /daily."
+          />
+        </div>
+      </Panel>
+
+      <Panel icon="users" title="Seus servidores" subtitle="Buscados em tempo real no Discord">
+        <div className="grid gap-3 sm:grid-cols-2">
+          {guilds.map((guild, index) => {
             const icon = getGuildIconUrl(guild.id, guild.icon);
             return (
-              <div
+              <NumberedRow
                 key={guild.id}
-                className="flex items-center gap-3 rounded-2xl bg-surface p-3 shadow-glow"
-              >
-                {icon ? (
-                  <Image
-                    src={icon}
-                    alt={guild.name}
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                  />
-                ) : (
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surfaceMuted text-sm font-semibold text-rose">
-                    {guild.name.slice(0, 1)}
-                  </div>
-                )}
-                <p className="truncate text-sm text-ink">{guild.name}</p>
-              </div>
+                index={index + 1}
+                media={
+                  icon ? (
+                    <Image
+                      src={icon}
+                      alt={guild.name}
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-bg/40 text-xs font-semibold text-rose">
+                      {guild.name.slice(0, 1)}
+                    </div>
+                  )
+                }
+                title={guild.name}
+                subtitle={guild.owner ? "Você é dono(a)" : undefined}
+              />
             );
           })}
           {guilds.length === 0 && (
@@ -140,7 +175,7 @@ export default async function PerfilPage() {
             </p>
           )}
         </div>
-      </div>
+      </Panel>
     </div>
   );
 }

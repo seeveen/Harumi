@@ -2,11 +2,22 @@
 
 import { useMemo, useState } from "react";
 import { commandCategories } from "@/lib/commands";
-import { Icons } from "@/components/Icons";
+import { Panel } from "@/components/Panel";
+import { Chip } from "@/components/Chip";
+
+const CATEGORY_COLORS: Record<string, { color: string; bg: string }> = {
+  economia: { color: "#FF6FA8", bg: "#FF6FA81F" },
+  moderacao: { color: "#5EEAD4", bg: "#5EEAD41F" },
+  interacao: { color: "#FF8FA3", bg: "#FF8FA31F" },
+  utilidades: { color: "#5EEAD4", bg: "#5EEAD41F" },
+  diversao: { color: "#FFA9D3", bg: "#FFA9D31F" },
+};
 
 export default function ComandosPage() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | "todas">("todas");
+
+  const totalComandos = commandCategories.reduce((sum, cat) => sum + cat.commands.length, 0);
 
   const filtered = useMemo(() => {
     return commandCategories
@@ -37,64 +48,51 @@ export default function ComandosPage() {
           className="w-full rounded-full border border-border bg-surface px-5 py-3 text-ink placeholder:text-inkSoft/70 sm:max-w-xs"
         />
         <div className="flex flex-wrap gap-2">
-          <button
+          <Chip
+            label="Todas"
+            count={totalComandos}
+            active={activeCategory === "todas"}
             onClick={() => setActiveCategory("todas")}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              activeCategory === "todas"
-                ? "bg-sakura text-bg"
-                : "bg-surface text-inkSoft hover:text-rose"
-            }`}
-          >
-            Todas
-          </button>
-          {commandCategories.map((cat) => {
-            const Icon = Icons[cat.icon];
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition ${
-                  activeCategory === cat.id
-                    ? "bg-sakura text-bg"
-                    : "bg-surface text-inkSoft hover:text-rose"
-                }`}
-              >
-                <Icon className="h-4 w-4" strokeWidth={2.25} />
-                {cat.label}
-              </button>
-            );
-          })}
+          />
+          {commandCategories.map((cat) => (
+            <Chip
+              key={cat.id}
+              label={cat.label}
+              count={cat.commands.length}
+              active={activeCategory === cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="mt-10 space-y-10">
+      <div className="mt-8 space-y-5">
         {filtered.map((cat) => {
-          const Icon = Icons[cat.icon];
+          const palette = CATEGORY_COLORS[cat.id] ?? { color: "#FF6FA8", bg: "#FF6FA81F" };
           return (
-            <div key={cat.id}>
-              <div className="flex items-center gap-2">
-                <Icon className="h-6 w-6 text-sakura" strokeWidth={2.25} />
-                <p className="font-display text-xl text-rose">{cat.label}</p>
-              </div>
-              <p className="mt-1 text-sm text-inkSoft">{cat.description}</p>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <Panel
+              key={cat.id}
+              icon={cat.icon}
+              iconColor={palette.color}
+              iconBg={palette.bg}
+              title={cat.label}
+              subtitle={cat.description}
+              actions={
+                <span className="rounded-full bg-surfaceMuted px-3 py-1 text-xs text-inkSoft">
+                  {cat.commands.length} comandos
+                </span>
+              }
+            >
+              <div className="grid gap-3 sm:grid-cols-2">
                 {cat.commands.map((cmd) => (
-                  <div
-                    key={cmd.name}
-                    className="rounded-2xl bg-surface p-4 shadow-glow"
-                  >
-                    <p className="font-mono text-sm font-semibold text-sakura">
-                      {cmd.name}
-                    </p>
-                    <p className="mt-1 text-sm text-inkSoft">
-                      {cmd.description}
-                    </p>
+                  <div key={cmd.name} className="rounded-2xl bg-surfaceMuted p-4">
+                    <p className="font-mono text-sm font-semibold text-sakura">{cmd.name}</p>
+                    <p className="mt-1 text-sm text-inkSoft">{cmd.description}</p>
                     <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>
                   </div>
                 ))}
               </div>
-            </div>
+            </Panel>
           );
         })}
 

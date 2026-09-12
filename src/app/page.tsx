@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { HarumiMascot } from "@/components/HarumiMascot";
 import { StatCard } from "@/components/StatCard";
-import { IconBadge, Icons, type IconName } from "@/components/Icons";
+import { Panel } from "@/components/Panel";
+import { Icons, type IconName } from "@/components/Icons";
 import { commandCategories } from "@/lib/commands";
 import { prisma } from "@/lib/prisma";
 
@@ -102,37 +103,41 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 grid max-w-md grid-cols-2 gap-3">
-            <StatCard
-              icon="grid"
-              iconColor="#FF6FA8"
-              iconBg="#FF6FA81F"
-              label="Comandos"
-              value={String(totalComandos)}
-            />
-            <StatCard
-              icon="flower"
-              iconColor="#5EEAD4"
-              iconBg="#5EEAD41F"
-              label="Categorias"
-              value={String(commandCategories.length)}
-              valueColor="text-mint"
-            />
-            <StatCard
-              icon="users"
-              iconColor="#FF8FA3"
-              iconBg="#FF8FA31F"
-              label="Membros no site"
-              value={String(totalMembros)}
-            />
-            <StatCard
-              icon="coin"
-              iconColor="#FFA9D3"
-              iconBg="#FFA9D31F"
-              label="Moedas em circulação"
-              value={moedasEmCirculacao.toLocaleString("pt-BR")}
-              valueColor="text-rose"
-            />
+          <div className="mt-10 max-w-md">
+            <Panel icon="grid" title="Resumo da Harumi" subtitle="Atualizado agora mesmo" className="p-4">
+              <div className="grid grid-cols-2 gap-3">
+                <StatCard
+                  icon="grid"
+                  iconColor="#FF6FA8"
+                  iconBg="#FF6FA81F"
+                  label="Comandos"
+                  value={String(totalComandos)}
+                />
+                <StatCard
+                  icon="flower"
+                  iconColor="#5EEAD4"
+                  iconBg="#5EEAD41F"
+                  label="Categorias"
+                  value={String(commandCategories.length)}
+                  valueColor="text-mint"
+                />
+                <StatCard
+                  icon="users"
+                  iconColor="#FF8FA3"
+                  iconBg="#FF8FA31F"
+                  label="Membros no site"
+                  value={String(totalMembros)}
+                />
+                <StatCard
+                  icon="coin"
+                  iconColor="#FFA9D3"
+                  iconBg="#FFA9D31F"
+                  label="Moedas em circulação"
+                  value={moedasEmCirculacao.toLocaleString("pt-BR")}
+                  valueColor="text-rose"
+                />
+              </div>
+            </Panel>
           </div>
         </div>
 
@@ -153,16 +158,16 @@ export default async function HomePage() {
         <p className="font-display text-2xl text-ink">O que ela faz por você</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {features.map((feature) => (
-            <div
+            <Panel
               key={feature.id}
-              className={`${feature.span} rounded-blob-lg bg-surface p-6 shadow-glow transition hover:shadow-card`}
+              icon={feature.icon}
+              iconColor={feature.iconColor}
+              iconBg={feature.iconBg}
+              title={feature.title}
+              className={`${feature.span} transition hover:shadow-card`}
             >
-              <IconBadge icon={feature.icon} color={feature.iconColor} bg={feature.iconBg} />
-              <p className="mt-3 font-display text-lg text-rose">
-                {feature.title}
-              </p>
-              <p className="mt-1 text-sm text-inkSoft">{feature.text}</p>
-            </div>
+              <p className="text-sm text-inkSoft">{feature.text}</p>
+            </Panel>
           ))}
         </div>
       </section>
