@@ -4,13 +4,14 @@ import { useMemo, useState } from "react";
 import { commandCategories } from "@/lib/commands";
 import { Panel } from "@/components/Panel";
 import { Chip } from "@/components/Chip";
+import { Icons } from "@/components/Icons";
 
 const CATEGORY_COLORS: Record<string, { color: string; bg: string }> = {
-  economia: { color: "#FF6FA8", bg: "#FF6FA81F" },
-  moderacao: { color: "#5EEAD4", bg: "#5EEAD41F" },
-  interacao: { color: "#FF8FA3", bg: "#FF8FA31F" },
-  utilidades: { color: "#5EEAD4", bg: "#5EEAD41F" },
-  diversao: { color: "#FFA9D3", bg: "#FFA9D31F" },
+  economia: { color: "#FF6FB8", bg: "#FF6FB81F" },
+  moderacao: { color: "#6EE7C8", bg: "#6EE7C81F" },
+  interacao: { color: "#FFB6DC", bg: "#FFB6DC1F" },
+  utilidades: { color: "#6EE7C8", bg: "#6EE7C81F" },
+  diversao: { color: "#C76BFF", bg: "#C76BFF1F" },
 };
 
 export default function ComandosPage() {
@@ -41,12 +42,15 @@ export default function ComandosPage() {
       </p>
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Buscar um comando..."
-          className="w-full rounded-full border border-border bg-surface px-5 py-3 text-ink placeholder:text-inkSoft/70 sm:max-w-xs"
-        />
+        <div className="relative w-full sm:max-w-xs">
+          <Icons.search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-inkSoft" strokeWidth={2.25} />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar um comando..."
+            className="w-full rounded-full border border-line bg-surface py-3 pl-10 pr-5 text-ink placeholder:text-inkSoft/70 focus:border-sakura/50"
+          />
+        </div>
         <div className="flex flex-wrap gap-2">
           <Chip
             label="Todas"
@@ -68,7 +72,7 @@ export default function ComandosPage() {
 
       <div className="mt-8 space-y-5">
         {filtered.map((cat) => {
-          const palette = CATEGORY_COLORS[cat.id] ?? { color: "#FF6FA8", bg: "#FF6FA81F" };
+          const palette = CATEGORY_COLORS[cat.id] ?? { color: "#FF6FB8", bg: "#FF6FB81F" };
           return (
             <Panel
               key={cat.id}
@@ -78,14 +82,14 @@ export default function ComandosPage() {
               title={cat.label}
               subtitle={cat.description}
               actions={
-                <span className="rounded-full bg-surfaceMuted px-3 py-1 text-xs text-inkSoft">
+                <span className="rounded-full bg-surfaceHi px-3 py-1 text-xs text-inkSoft">
                   {cat.commands.length} comandos
                 </span>
               }
             >
               <div className="grid gap-3 sm:grid-cols-2">
                 {cat.commands.map((cmd) => (
-                  <div key={cmd.name} className="rounded-2xl bg-surfaceMuted p-4">
+                  <div key={cmd.name} className="rounded-2xl border border-line bg-surfaceHi p-4">
                     <p className="font-mono text-sm font-semibold text-sakura">{cmd.name}</p>
                     <p className="mt-1 text-sm text-inkSoft">{cmd.description}</p>
                     <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>

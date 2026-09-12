@@ -4,48 +4,42 @@
 
 :root {
   color-scheme: dark;
+  --grad-pink: linear-gradient(135deg, #ff6fb8 0%, #c76bff 100%);
+  --grad-pink-soft: linear-gradient(135deg, #ff9dcf 0%, #d9a6ff 100%);
+}
+
+* {
+  scrollbar-color: #ff6fb8 #150f1c;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   position: relative;
-  background-color: #0A0A0C;
+  background-color: #0a0710;
   background-image:
-    radial-gradient(ellipse 55% 45% at 12% -8%, rgba(255, 111, 168, 0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 100% 0%, rgba(198, 66, 138, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 55% at 50% 115%, rgba(94, 234, 212, 0.04) 0%, transparent 60%),
-    linear-gradient(180deg, #0C0C0E 0%, #0A0A0C 45%, #08080A 100%);
+    radial-gradient(ellipse 60% 50% at 15% -10%, rgba(255, 111, 184, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 100% 0%, rgba(155, 92, 255, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 50% 120%, rgba(110, 231, 200, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #0c0812 0%, #0a0710 45%, #08060d 100%);
   background-attachment: fixed;
-  color: #F5F5F7;
+  color: #f6eff8;
   overflow-x: hidden;
 }
 
-/* pétalas bem discretas espalhadas pelo fundo, sem poluir o conteúdo */
+/* uma única textura discreta de fundo — não repete o efeito em outro lugar */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='%23FF6FA8' fill-opacity='0.04'%3E%3Cpath d='M60 40c10-14 30-14 34 2 4-16 24-16 30-2 6 14-8 26-32 34-24-8-38-20-32-34z'/%3E%3Cpath d='M300 180c8-11 24-11 27 2 3-13 19-13 24-2 5 11-6 21-25 27-19-6-31-16-26-27z'/%3E%3Cpath d='M160 300c9-12 27-12 30 2 3-14 21-14 26-2 5 12-7 23-28 30-21-7-34-18-28-30z'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 420px 420px;
-}
-
-/* brilho suave ancorado atrás do conteúdo principal, um único momento de destaque */
-body::after {
-  content: "";
-  position: fixed;
-  top: -10%;
-  right: -10%;
-  z-index: 0;
-  pointer-events: none;
-  width: 55vw;
-  height: 55vw;
-  max-width: 620px;
-  max-height: 620px;
-  background: radial-gradient(circle, rgba(255, 111, 168, 0.10) 0%, rgba(255, 111, 168, 0) 70%);
-  filter: blur(10px);
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 70%);
 }
 
 #__next,
@@ -57,21 +51,45 @@ footer {
 }
 
 ::selection {
-  background-color: #E24E86;
-  color: #0A0A0C;
-}
-
-* {
-  scrollbar-color: #E24E86 #131316;
+  background-color: #ff6fb8;
+  color: #0a0710;
 }
 
 :focus-visible {
-  outline: 3px solid #FF6FA8;
-  outline-offset: 2px;
-  border-radius: 6px;
+  outline: 2px solid #ff8fc6;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* borda em degradê: pinta o fundo real por dentro e o degradê por fora,
+   então qualquer cor de fundo do card funciona sem precisar de wrapper extra */
+.grad-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(#150f1c, #150f1c), var(--grad-pink);
+}
+
+.grad-border-soft {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(#150f1c, #150f1c), linear-gradient(135deg, rgba(255,111,184,0.5), rgba(199,107,255,0.35));
+}
+
+.text-gradient {
+  background-image: var(--grad-pink);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

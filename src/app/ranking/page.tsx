@@ -29,7 +29,7 @@ export default async function RankingPage() {
 
         <div className="mt-5 space-y-2.5">
           {top.length === 0 && (
-            <p className="flex items-center gap-2 rounded-2xl bg-surfaceMuted p-6 text-inkSoft">
+            <p className="flex items-center gap-2 rounded-2xl bg-surfaceHi p-6 text-inkSoft">
               <Icons.flower className="h-5 w-5 shrink-0 text-sakura" strokeWidth={2.25} />
               Ainda ninguém entrou. Seja a primeira pessoa a aparecer aqui —
               entre com o Discord no canto superior direito.

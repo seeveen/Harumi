@@ -13,14 +13,14 @@ type PanelProps = {
 };
 
 /**
- * Cartão de painel no estilo "modal fofo": selo com ícone + título na
- * mesma linha, com espaço opcional pra uma legenda e ações à direita.
- * É a base visual repetida pelo site inteiro (perfil, ranking, comandos).
+ * Cartão de painel — selo com ícone + título na mesma linha, com espaço
+ * opcional pra uma legenda e ações à direita. É a base visual repetida
+ * pelo site inteiro (perfil, ranking, comandos).
  */
 export function Panel({
   icon,
-  iconColor = "#FF6FA8",
-  iconBg = "#FF6FA81F",
+  iconColor = "#FF6FB8",
+  iconBg = "#FF6FB81F",
   title,
   subtitle,
   actions,
@@ -29,7 +29,7 @@ export function Panel({
 }: PanelProps) {
   return (
     <div
-      className={`rounded-blob-lg border border-border/60 bg-surface p-5 shadow-glow sm:p-6 ${className}`}
+      className={`rounded-blob-lg border border-line bg-surface p-5 shadow-glow sm:p-6 ${className}`}
     >
       {(icon || title) && (
         <div className="flex items-center justify-between gap-3">

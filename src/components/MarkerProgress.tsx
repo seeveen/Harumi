@@ -7,8 +7,7 @@ type MarkerProgressProps = {
 
 /**
  * Barra de progresso com marcadores nas duas pontas (ex.: XP atual /
- * meta de nível), igual à barra de "risco x meta" dos modais de
- * referência, só que em rosa fofo.
+ * meta de nível) e um pino flutuante indicando a posição atual.
  */
 export function MarkerProgress({
   percent,
@@ -20,9 +19,9 @@ export function MarkerProgress({
 
   return (
     <div>
-      <div className="relative h-2.5 rounded-full bg-surfaceMuted">
+      <div className="relative h-2.5 rounded-full bg-surfaceHi">
         <div
-          className="h-2.5 rounded-full bg-gradient-to-r from-sakuraDark to-sakura"
+          className="h-2.5 rounded-full bg-grad-brand"
           style={{ width: `${clamped}%` }}
         />
         <div
@@ -35,7 +34,7 @@ export function MarkerProgress({
         {markers.map((marker) => (
           <div key={marker.label}>
             <p className="text-inkSoft/80">{marker.label}</p>
-            <p className="font-semibold" style={{ color: marker.color ?? "#F9EEF6" }}>
+            <p className="font-semibold" style={{ color: marker.color ?? "#F6EFF8" }}>
               {marker.value}
             </p>
           </div>
@@ -43,7 +42,7 @@ export function MarkerProgress({
       </div>
 
       {currentLabel && (
-        <div className="mt-3 rounded-2xl bg-surfaceMuted px-4 py-3">
+        <div className="mt-3 rounded-2xl bg-surfaceHi px-4 py-3">
           <p className="text-xs text-inkSoft">
             {currentLabel} <span className="text-rose">agora</span>
           </p>

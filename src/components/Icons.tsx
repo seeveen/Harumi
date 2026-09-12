@@ -21,6 +21,9 @@ import {
   Trophy,
   Crown,
   ChevronDown,
+  Zap,
+  Radio,
+  Search,
   type LucideIcon,
 } from "lucide-react";
 
@@ -52,6 +55,9 @@ export const Icons: Record<string, LucideIcon> = {
   trophy: Trophy,
   crown: Crown,
   chevronDown: ChevronDown,
+  bolt: Zap,
+  live: Radio,
+  search: Search,
 };
 
 export type IconName = keyof typeof Icons;

@@ -9,13 +9,11 @@ export function ProgressBar({ label, startLabel, goalLabel, percent }: ProgressB
   const clamped = Math.min(100, Math.max(0, percent));
 
   return (
-    <div className="rounded-2xl bg-surface p-5 shadow-glow">
-      <p className="text-xs font-medium uppercase tracking-wide text-inkSoft">
-        {label}
-      </p>
-      <div className="relative mt-4 h-2 rounded-full bg-surfaceMuted">
+    <div className="rounded-2xl border border-line bg-surface p-5 shadow-glow">
+      <p className="text-xs font-medium text-inkSoft">{label}</p>
+      <div className="relative mt-4 h-2 rounded-full bg-surfaceHi">
         <div
-          className="h-2 rounded-full bg-gradient-to-r from-sakuraDark to-sakura"
+          className="h-2 rounded-full bg-grad-brand"
           style={{ width: `${clamped}%` }}
         />
         <div

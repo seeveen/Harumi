@@ -22,8 +22,8 @@ const features: {
     id: "economia",
     title: "Economia",
     icon: "coin",
-    iconColor: "#FF6FA8",
-    iconBg: "#FF6FA81F",
+    iconColor: "#FF6FB8",
+    iconBg: "#FF6FB81F",
     span: "md:col-span-2",
     text: "Moedas, banco, apostas e trabalho — os membros constroem uma economia de verdade dentro do servidor, com ranking próprio.",
   },
@@ -31,8 +31,8 @@ const features: {
     id: "moderacao",
     title: "Moderação",
     icon: "shield",
-    iconColor: "#5EEAD4",
-    iconBg: "#5EEAD41F",
+    iconColor: "#6EE7C8",
+    iconBg: "#6EE7C81F",
     span: "",
     text: "Bans, mutes, avisos e automod, sem complicação.",
   },
@@ -40,8 +40,8 @@ const features: {
     id: "interacao",
     title: "Interação",
     icon: "heart",
-    iconColor: "#FF8FA3",
-    iconBg: "#FF8FA31F",
+    iconColor: "#FFB6DC",
+    iconBg: "#FFB6DC1F",
     span: "",
     text: "Abraços, casamentos e perfis para os membros interagirem.",
   },
@@ -49,8 +49,8 @@ const features: {
     id: "diversao",
     title: "Diversão",
     icon: "dice",
-    iconColor: "#FFA9D3",
-    iconBg: "#FFA9D31F",
+    iconColor: "#C76BFF",
+    iconBg: "#C76BFF1F",
     span: "",
     text: "Jogos, memes e brincadeiras para animar qualquer canal.",
   },
@@ -58,8 +58,8 @@ const features: {
     id: "utilidades",
     title: "Utilidades",
     icon: "gift",
-    iconColor: "#5EEAD4",
-    iconBg: "#5EEAD41F",
+    iconColor: "#6EE7C8",
+    iconBg: "#6EE7C81F",
     span: "md:col-span-2",
     text: "Lembretes, enquetes e informações do servidor sempre à mão.",
   },
@@ -92,47 +92,58 @@ export default async function HomePage() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href="#"
-              className="rounded-full bg-sakura px-6 py-3 font-semibold text-bg shadow-pop transition active:translate-y-0.5 active:shadow-none"
+              className="rounded-full bg-grad-brand px-6 py-3 font-semibold text-bg shadow-pop transition active:translate-y-0.5 active:shadow-none"
             >
               Adicionar ao servidor
             </a>
             <Link
               href="/comandos"
-              className="rounded-full border border-border bg-surface px-6 py-3 font-semibold text-rose transition hover:border-sakura"
+              className="rounded-full border border-line bg-surface px-6 py-3 font-semibold text-rose transition hover:border-sakura/50"
             >
               Ver comandos
             </Link>
           </div>
 
           <div className="mt-10 max-w-md">
-            <Panel icon="grid" title="Resumo da Harumi" subtitle="Atualizado agora mesmo" className="p-4">
+            <Panel
+              icon="grid"
+              title="Resumo da Harumi"
+              subtitle="Atualizado agora mesmo"
+              className="grad-border-soft !bg-surface p-4"
+              actions={
+                <span className="flex items-center gap-1.5 rounded-full bg-mint/10 px-2.5 py-1 text-xs font-medium text-mint">
+                  <Icons.live className="h-3 w-3" strokeWidth={2.5} />
+                  ao vivo
+                </span>
+              }
+            >
               <div className="grid grid-cols-2 gap-3">
                 <StatCard
                   icon="grid"
-                  iconColor="#FF6FA8"
-                  iconBg="#FF6FA81F"
+                  iconColor="#FF6FB8"
+                  iconBg="#FF6FB81F"
                   label="Comandos"
                   value={String(totalComandos)}
                 />
                 <StatCard
                   icon="flower"
-                  iconColor="#5EEAD4"
-                  iconBg="#5EEAD41F"
+                  iconColor="#6EE7C8"
+                  iconBg="#6EE7C81F"
                   label="Categorias"
                   value={String(commandCategories.length)}
                   valueColor="text-mint"
                 />
                 <StatCard
                   icon="users"
-                  iconColor="#FF8FA3"
-                  iconBg="#FF8FA31F"
+                  iconColor="#FFB6DC"
+                  iconBg="#FFB6DC1F"
                   label="Membros no site"
                   value={String(totalMembros)}
                 />
                 <StatCard
                   icon="coin"
-                  iconColor="#FFA9D3"
-                  iconBg="#FFA9D31F"
+                  iconColor="#C76BFF"
+                  iconBg="#C76BFF1F"
                   label="Moedas em circulação"
                   value={moedasEmCirculacao.toLocaleString("pt-BR")}
                   valueColor="text-rose"
@@ -143,12 +154,12 @@ export default async function HomePage() {
         </div>
 
         <div className="relative mx-auto w-full max-w-sm">
-          <HarumiMascot className="w-full drop-shadow-[0_20px_35px_rgba(198,66,138,0.35)]" />
-          <span className="absolute -left-4 top-6 flex -rotate-[8deg] items-center gap-1.5 rounded-2xl bg-surface px-3 py-2 text-sm font-semibold text-rose shadow-soft">
+          <HarumiMascot className="w-full drop-shadow-[0_25px_45px_rgba(199,71,158,0.35)]" />
+          <span className="absolute -left-4 top-6 flex -rotate-[8deg] items-center gap-1.5 rounded-2xl border border-line bg-surface px-3 py-2 text-sm font-semibold text-rose shadow-soft">
             <Icons.coin className="h-4 w-4" strokeWidth={2.25} />
             +250 hoje
           </span>
-          <span className="absolute -right-2 bottom-10 flex rotate-[6deg] items-center gap-1.5 rounded-2xl bg-surface px-3 py-2 text-sm font-semibold text-rose shadow-soft">
+          <span className="absolute -right-2 bottom-10 flex rotate-[6deg] items-center gap-1.5 rounded-2xl border border-line bg-surface px-3 py-2 text-sm font-semibold text-rose shadow-soft">
             <Icons.sparkle className="h-4 w-4" strokeWidth={2.25} />
             nível 12
           </span>

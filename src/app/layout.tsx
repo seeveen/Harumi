@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Fredoka, Plus_Jakarta_Sans } from "next/font/google";
+import { Baloo_2, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const fredoka = Fredoka({
+const baloo = Baloo_2({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-fredoka",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-baloo",
 });
 
 const jakarta = Plus_Jakarta_Sans({
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${fredoka.variable} ${jakarta.variable} font-body antialiased`}
+        className={`${baloo.variable} ${jakarta.variable} font-body antialiased`}
       >
         <Providers>
           <Navbar />

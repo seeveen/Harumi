@@ -27,7 +27,7 @@ export default async function PerfilPage() {
         </p>
         <Link
           href="/"
-          className="mt-6 inline-block rounded-full bg-sakura px-6 py-3 font-semibold text-bg shadow-pop"
+          className="mt-6 inline-block rounded-full bg-grad-brand px-6 py-3 font-semibold text-bg shadow-pop"
         >
           Voltar para o início
         </Link>
@@ -67,7 +67,7 @@ export default async function PerfilPage() {
             alt={session.user.name ?? "Seu avatar"}
             width={72}
             height={72}
-            className="rounded-full ring-2 ring-sakura/40"
+            className="rounded-full ring-2 ring-sakura/50"
           />
           <div>
             <p className="font-display text-xl text-ink">{session.user.name}</p>
@@ -86,24 +86,24 @@ export default async function PerfilPage() {
       <div className="grid gap-3 sm:grid-cols-3">
         <StatCard
           icon="wallet"
-          iconColor="#FF6FA8"
-          iconBg="#FF6FA81F"
+          iconColor="#FF6FB8"
+          iconBg="#FF6FB81F"
           label="Carteira"
           value={`${member?.economy?.balance ?? 0}`}
           valueColor="text-rose"
         />
         <StatCard
           icon="bank"
-          iconColor="#5EEAD4"
-          iconBg="#5EEAD41F"
+          iconColor="#6EE7C8"
+          iconBg="#6EE7C81F"
           label="Banco"
           value={`${member?.economy?.bank ?? 0}`}
           valueColor="text-mint"
         />
         <StatCard
           icon="sparkle"
-          iconColor="#FFA9D3"
-          iconBg="#FFA9D31F"
+          iconColor="#C76BFF"
+          iconBg="#C76BFF1F"
           label="Nível"
           value={`${level}`}
         />
@@ -113,9 +113,9 @@ export default async function PerfilPage() {
         <MarkerProgress
           percent={percentXp}
           markers={[
-            { label: "NÍVEL ATUAL", value: `${level}`, color: "#FFA9D3" },
+            { label: "NÍVEL ATUAL", value: `${level}`, color: "#C76BFF" },
             { label: "XP ATUAL", value: `${xp}`, color: "#F9EEF6" },
-            { label: "PRÓXIMO NÍVEL", value: `${xpParaProximoNivel} XP`, color: "#5EEAD4" },
+            { label: "PRÓXIMO NÍVEL", value: `${xpParaProximoNivel} XP`, color: "#6EE7C8" },
           ]}
           currentLabel="Faltam"
           currentValue={`${Math.max(xpParaProximoNivel - xp, 0)} XP para o nível ${level + 1}`}
@@ -123,7 +123,7 @@ export default async function PerfilPage() {
       </Panel>
 
       <Panel icon="bell" title="Preferências" subtitle="Só neste navegador, é só visual por enquanto">
-        <div className="divide-y divide-border/60">
+        <div className="divide-y divide-line">
           <ToggleRow
             label="Notificar quando eu subir de nível"
             description="Mostra um aviso flutuante ao bater a meta de XP."

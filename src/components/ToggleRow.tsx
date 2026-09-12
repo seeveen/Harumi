@@ -10,8 +10,7 @@ type ToggleRowProps = {
 
 /**
  * Linha de configuração com interruptor. Usa `style` pra posicionar a
- * bolinha (em vez de depender de classes utilitárias do Tailwind), pra
- * garantir que o estado desligado sempre fique visivelmente à esquerda.
+ * bolinha, garantindo que o estado desligado sempre fique à esquerda.
  * É só visual (não salva nada) — mostra a preferência marcada por padrão.
  */
 export function ToggleRow({ label, description, defaultChecked = false }: ToggleRowProps) {
@@ -34,8 +33,9 @@ export function ToggleRow({ label, description, defaultChecked = false }: Toggle
         onClick={() => setChecked((v) => !v)}
         className="relative h-6 w-11 shrink-0 rounded-full border transition-colors duration-200"
         style={{
-          backgroundColor: checked ? "#FF6FA8" : "#101013",
-          borderColor: checked ? "#FF6FA8" : "#2E2E34",
+          backgroundImage: checked ? "linear-gradient(135deg, #FF6FB8, #C76BFF)" : "none",
+          backgroundColor: checked ? undefined : "#150F1C",
+          borderColor: checked ? "transparent" : "rgba(255,255,255,0.12)",
         }}
       >
         <span

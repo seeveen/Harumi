@@ -8,13 +8,13 @@ type IconButtonProps = {
   href?: string;
 };
 
-/** Botão circular escuro com um ícone — a "barra de ferramentas" fofa. */
+/** Botão circular com um ícone — a "barra de ferramentas" fofa. */
 export function IconButton({ icon, label, onClick, variant = "default", href }: IconButtonProps) {
   const Icon = Icons[icon];
   const classes = `flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
     variant === "danger"
-      ? "border-coral/40 bg-coral/10 text-coral hover:bg-coral/20"
-      : "border-border bg-surfaceMuted text-inkSoft hover:border-sakura hover:text-rose"
+      ? "border-sakuraDeep/40 bg-sakuraDeep/10 text-rose hover:bg-sakuraDeep/20"
+      : "border-line bg-surfaceHi text-inkSoft hover:border-sakura/50 hover:text-rose"
   }`;
 
   if (href) {

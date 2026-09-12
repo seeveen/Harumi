@@ -9,16 +9,20 @@ export function HarumiMascot({ className }: { className?: string }) {
     >
       <defs>
         <radialGradient id="harumi-glow" cx="50%" cy="35%" r="65%">
-          <stop offset="0%" stopColor="#FF9DC8" />
+          <stop offset="0%" stopColor="#FFB6DC" />
           <stop offset="100%" stopColor="#FFF6FA" />
         </radialGradient>
+        <linearGradient id="harumi-ear" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FF6FB8" />
+          <stop offset="100%" stopColor="#C76BFF" />
+        </linearGradient>
       </defs>
-      <ellipse cx="160" cy="175" rx="122" ry="112" fill="#2A1534" />
+      <ellipse cx="160" cy="175" rx="122" ry="112" fill="#241130" />
       <ellipse cx="160" cy="182" rx="96" ry="89" fill="url(#harumi-glow)" />
-      <path d="M75 112 Q58 60 100 54 Q92 90 106 106 Z" fill="#FF6FA8" />
-      <path d="M245 112 Q262 60 220 54 Q228 90 214 106 Z" fill="#FF6FA8" />
-      <path d="M75 112 Q58 60 100 54 Q92 90 106 106 Z" fill="#E24E86" opacity="0.35" />
-      <path d="M245 112 Q262 60 220 54 Q228 90 214 106 Z" fill="#E24E86" opacity="0.35" />
+      <path d="M75 112 Q58 60 100 54 Q92 90 106 106 Z" fill="url(#harumi-ear)" />
+      <path d="M245 112 Q262 60 220 54 Q228 90 214 106 Z" fill="url(#harumi-ear)" />
+      <path d="M75 112 Q58 60 100 54 Q92 90 106 106 Z" fill="#E23F86" opacity="0.25" />
+      <path d="M245 112 Q262 60 220 54 Q228 90 214 106 Z" fill="#E23F86" opacity="0.25" />
       <circle cx="128" cy="178" r="7" fill="#3A2333" />
       <circle cx="192" cy="178" r="7" fill="#3A2333" />
       <circle cx="125.5" cy="175" r="2" fill="#FFF" />
@@ -32,10 +36,10 @@ export function HarumiMascot({ className }: { className?: string }) {
         strokeLinecap="round"
         fill="none"
       />
-      <circle cx="160" cy="70" r="10" fill="#E24E86" />
+      <circle cx="160" cy="70" r="10" fill="#C76BFF" />
       <path
         d="M60 250q100 34 200 0"
-        stroke="#E24E86"
+        stroke="#E23F86"
         strokeWidth="3"
         strokeLinecap="round"
         fill="none"
