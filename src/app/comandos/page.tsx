@@ -23,8 +23,8 @@ export default function ComandosPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <p className="font-display text-3xl text-plum">Comandos</p>
-      <p className="mt-2 text-plumSoft">
+      <p className="font-display text-3xl text-ink">Comandos</p>
+      <p className="mt-2 text-inkSoft">
         Tudo que a Harumi sabe fazer, organizado por categoria.
       </p>
 
@@ -33,15 +33,15 @@ export default function ComandosPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar um comando..."
-          className="w-full rounded-full border border-petal bg-white px-5 py-3 text-plum placeholder:text-plumSoft/70 sm:max-w-xs"
+          className="w-full rounded-full border border-border bg-surface px-5 py-3 text-ink placeholder:text-inkSoft/70 sm:max-w-xs"
         />
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveCategory("todas")}
             className={`rounded-full px-4 py-2 text-sm font-medium transition ${
               activeCategory === "todas"
-                ? "bg-sakura text-white"
-                : "bg-white text-plumSoft hover:text-rose"
+                ? "bg-sakura text-bg"
+                : "bg-surface text-inkSoft hover:text-rose"
             }`}
           >
             Todas
@@ -52,8 +52,8 @@ export default function ComandosPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                 activeCategory === cat.id
-                  ? "bg-sakura text-white"
-                  : "bg-white text-plumSoft hover:text-rose"
+                  ? "bg-sakura text-bg"
+                  : "bg-surface text-inkSoft hover:text-rose"
               }`}
             >
               {cat.emoji} {cat.label}
@@ -69,21 +69,21 @@ export default function ComandosPage() {
               <span className="text-2xl">{cat.emoji}</span>
               <p className="font-display text-xl text-rose">{cat.label}</p>
             </div>
-            <p className="mt-1 text-sm text-plumSoft">{cat.description}</p>
+            <p className="mt-1 text-sm text-inkSoft">{cat.description}</p>
 
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {cat.commands.map((cmd) => (
                 <div
                   key={cmd.name}
-                  className="rounded-2xl bg-white p-4 shadow-soft"
+                  className="rounded-2xl bg-surface p-4 shadow-glow"
                 >
-                  <p className="font-mono text-sm font-semibold text-sakuraDark">
+                  <p className="font-mono text-sm font-semibold text-sakura">
                     {cmd.name}
                   </p>
-                  <p className="mt-1 text-sm text-plumSoft">
+                  <p className="mt-1 text-sm text-inkSoft">
                     {cmd.description}
                   </p>
-                  <p className="mt-2 text-xs text-plumSoft/70">{cmd.usage}</p>
+                  <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>
                 </div>
               ))}
             </div>
@@ -91,7 +91,7 @@ export default function ComandosPage() {
         ))}
 
         {filtered.length === 0 && (
-          <p className="text-plumSoft">
+          <p className="text-inkSoft">
             Nenhum comando encontrado para &quot;{query}&quot;.
           </p>
         )}

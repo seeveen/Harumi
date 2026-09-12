@@ -14,8 +14,8 @@ export default async function RankingPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <p className="font-display text-3xl text-plum">Ranking</p>
-      <p className="mt-2 text-plumSoft">
+      <p className="font-display text-3xl text-ink">Ranking</p>
+      <p className="mt-2 text-inkSoft">
         Os membros com mais moedas depois de entrar no site. Quando a Harumi
         estiver rodando no seu servidor, esse ranking passa a refletir a
         economia real de lá também.
@@ -23,7 +23,7 @@ export default async function RankingPage() {
 
       <div className="mt-8 space-y-3">
         {top.length === 0 && (
-          <p className="rounded-2xl bg-white p-6 text-plumSoft shadow-soft">
+          <p className="rounded-2xl bg-surface p-6 text-inkSoft shadow-glow">
             Ainda ninguém entrou. Seja a primeira pessoa a aparecer aqui —
             entre com o Discord no canto superior direito. 🌸
           </p>
@@ -32,7 +32,7 @@ export default async function RankingPage() {
         {top.map((member, index) => (
           <div
             key={member.id}
-            className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft"
+            className="flex items-center gap-4 rounded-2xl bg-surface p-4 shadow-glow"
           >
             <span className="w-6 text-center font-display text-lg text-rose">
               {index + 1}
@@ -45,12 +45,12 @@ export default async function RankingPage() {
               className="rounded-full"
             />
             <div className="flex-1">
-              <p className="font-medium text-plum">
+              <p className="font-medium text-ink">
                 {member.globalName ?? member.username}
               </p>
-              <p className="text-xs text-plumSoft">nível {member.economy?.level}</p>
+              <p className="text-xs text-inkSoft">nível {member.economy?.level}</p>
             </div>
-            <p className="font-display text-lg text-sakuraDark">
+            <p className="font-display text-lg text-sakura">
               {member.economy?.balance} 🪙
             </p>
           </div>
