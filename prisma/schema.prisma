@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---- Modelos reais da Harumi (site + bot compartilham isto) ----
+// Sessão é JWT (não usa Account/Session no banco), então o User aqui
+// é só a nossa tabela real de membros — a mesma que o bot vai usar.
+
+model User {
+  id            String    @id @default(cuid())
+  discordId     String    @unique
+  username      String
+  globalName    String?
+  avatar        String?
+  createdAt     DateTime  @default(now())
+
+  economy       EconomyProfile?
+}
+
+model EconomyProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  balance   Int      @default(250)
+  bank      Int      @default(0)
+  level     Int      @default(1)
+  xp        Int      @default(0)
+  dailyStreak Int    @default(0)
+  updatedAt DateTime @updatedAt
+}
