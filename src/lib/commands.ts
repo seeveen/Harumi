@@ -1,3 +1,5 @@
+import type { IconName } from "@/components/Icons";
+
 export type Command = {
   name: string;
   description: string;
@@ -7,7 +9,7 @@ export type Command = {
 export type CommandCategory = {
   id: string;
   label: string;
-  emoji: string;
+  icon: IconName;
   description: string;
   commands: Command[];
 };
@@ -16,7 +18,7 @@ export const commandCategories: CommandCategory[] = [
   {
     id: "economia",
     label: "Economia",
-    emoji: "🌸",
+    icon: "coin",
     description: "Junte moedas, aposte e suba de nível conversando no servidor.",
     commands: [
       { name: "/saldo", description: "Mostra quanto você tem em carteira e no banco.", usage: "/saldo [membro]" },
@@ -30,7 +32,7 @@ export const commandCategories: CommandCategory[] = [
   {
     id: "moderacao",
     label: "Moderação",
-    emoji: "🛡️",
+    icon: "shield",
     description: "Mantenha o servidor organizado e seguro sem esforço.",
     commands: [
       { name: "/ban", description: "Bane um membro do servidor.", usage: "/ban <membro> [motivo]" },
@@ -44,7 +46,7 @@ export const commandCategories: CommandCategory[] = [
   {
     id: "interacao",
     label: "Interação",
-    emoji: "💞",
+    icon: "heart",
     description: "Comandos para interagir e brincar com os amigos.",
     commands: [
       { name: "/abraçar", description: "Manda um abraço fofo para alguém.", usage: "/abraçar <membro>" },
@@ -57,7 +59,7 @@ export const commandCategories: CommandCategory[] = [
   {
     id: "utilidades",
     label: "Utilidades",
-    emoji: "🎀",
+    icon: "gift",
     description: "Ferramentas do dia a dia para o servidor.",
     commands: [
       { name: "/ajuda", description: "Mostra a lista de comandos da Harumi.", usage: "/ajuda [categoria]" },
@@ -70,7 +72,7 @@ export const commandCategories: CommandCategory[] = [
   {
     id: "diversao",
     label: "Diversão",
-    emoji: "🍡",
+    icon: "dice",
     description: "Jogos e brincadeiras para animar o servidor.",
     commands: [
       { name: "/8ball", description: "Faz uma pergunta para a bola 8 mágica.", usage: "/8ball <pergunta>" },

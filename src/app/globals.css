@@ -7,25 +7,66 @@
 }
 
 body {
-  background-color: #160D1B;
+  position: relative;
+  background-color: #150818;
   background-image:
-    radial-gradient(circle at 10% 0%, rgba(255, 111, 165, 0.10) 0, transparent 40%),
-    radial-gradient(circle at 90% 10%, rgba(255, 111, 165, 0.08) 0, transparent 35%),
-    radial-gradient(circle at 50% 100%, rgba(255, 111, 165, 0.06) 0, transparent 45%);
-  color: #F7ECF3;
+    radial-gradient(ellipse 70% 55% at 15% -10%, rgba(255, 111, 168, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(198, 66, 138, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(94, 234, 212, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, #170919 0%, #150818 45%, #140717 100%);
+  background-attachment: fixed;
+  color: #F9EEF6;
+  overflow-x: hidden;
+}
+
+/* pétalas suaves e discretas espalhadas pelo fundo, sem poluir o conteúdo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='%23FF6FA8' fill-opacity='0.05'%3E%3Cpath d='M60 40c10-14 30-14 34 2 4-16 24-16 30-2 6 14-8 26-32 34-24-8-38-20-32-34z'/%3E%3Cpath d='M300 180c8-11 24-11 27 2 3-13 19-13 24-2 5 11-6 21-25 27-19-6-31-16-26-27z'/%3E%3Cpath d='M160 300c9-12 27-12 30 2 3-14 21-14 26-2 5 12-7 23-28 30-21-7-34-18-28-30z'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 420px 420px;
+}
+
+/* brilho suave ancorado atrás do conteúdo principal, um único momento de destaque */
+body::after {
+  content: "";
+  position: fixed;
+  top: -10%;
+  right: -10%;
+  z-index: 0;
+  pointer-events: none;
+  width: 55vw;
+  height: 55vw;
+  max-width: 620px;
+  max-height: 620px;
+  background: radial-gradient(circle, rgba(255, 111, 168, 0.14) 0%, rgba(255, 111, 168, 0) 70%);
+  filter: blur(10px);
+}
+
+#__next,
+main,
+header,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 ::selection {
-  background-color: #E85394;
-  color: #160D1B;
+  background-color: #E24E86;
+  color: #150818;
 }
 
 * {
-  scrollbar-color: #E85394 #1F1424;
+  scrollbar-color: #E24E86 #1E1027;
 }
 
 :focus-visible {
-  outline: 3px solid #FF6FA5;
+  outline: 3px solid #FF6FA8;
   outline-offset: 2px;
   border-radius: 6px;
 }

@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { fetchUserGuilds, getGuildIconUrl } from "@/lib/discord";
 import { StatCard } from "@/components/StatCard";
 import { ProgressBar } from "@/components/ProgressBar";
+import { Icons } from "@/components/Icons";
 
 export const revalidate = 0;
 
@@ -70,22 +71,25 @@ export default async function PerfilPage() {
 
       <div className="mt-6 grid gap-3 sm:grid-cols-3">
         <StatCard
-          icon="🪙"
-          iconBg="#E8539433"
+          icon="wallet"
+          iconColor="#FF6FA8"
+          iconBg="#FF6FA81F"
           label="Carteira"
           value={`${member?.economy?.balance ?? 0}`}
           valueColor="text-rose"
         />
         <StatCard
-          icon="🏦"
-          iconBg="#34D39933"
+          icon="bank"
+          iconColor="#5EEAD4"
+          iconBg="#5EEAD41F"
           label="Banco"
           value={`${member?.economy?.bank ?? 0}`}
           valueColor="text-mint"
         />
         <StatCard
-          icon="✨"
-          iconBg="#FF6FA533"
+          icon="sparkle"
+          iconColor="#FFA9D3"
+          iconBg="#FFA9D31F"
           label="Nível"
           value={`${level}`}
         />

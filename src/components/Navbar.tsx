@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Icons } from "@/components/Icons";
 
 const links = [
   { href: "/", label: "Início" },
@@ -19,7 +20,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl">🌸</span>
+          <Icons.flower className="h-6 w-6 text-sakura" strokeWidth={2.25} />
           <span className="font-display text-xl font-semibold text-rose">Harumi</span>
         </Link>
 
@@ -61,16 +62,18 @@ export function Navbar() {
             </Link>
             <button
               onClick={() => signOut()}
-              className="rounded-full border border-border px-3 py-2 text-sm text-inkSoft transition hover:border-sakura hover:text-rose"
+              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-sm text-inkSoft transition hover:border-sakura hover:text-rose"
             >
+              <Icons.logout className="h-4 w-4" strokeWidth={2.25} />
               Sair
             </button>
           </div>
         ) : (
           <button
             onClick={() => signIn("discord")}
-            className="rounded-full bg-sakura px-5 py-2.5 text-sm font-semibold text-bg shadow-pop transition active:translate-y-0.5 active:shadow-none"
+            className="flex items-center gap-2 rounded-full bg-sakura px-5 py-2.5 text-sm font-semibold text-bg shadow-pop transition active:translate-y-0.5 active:shadow-none"
           >
+            <Icons.chat className="h-4 w-4" strokeWidth={2.5} />
             Entrar com Discord
           </button>
         )}

@@ -1,5 +1,8 @@
+import { IconBadge, type IconName } from "@/components/Icons";
+
 type StatCardProps = {
-  icon: string;
+  icon: IconName;
+  iconColor: string;
   iconBg: string;
   label: string;
   value: string;
@@ -9,6 +12,7 @@ type StatCardProps = {
 
 export function StatCard({
   icon,
+  iconColor,
   iconBg,
   label,
   value,
@@ -16,14 +20,9 @@ export function StatCard({
   hint,
 }: StatCardProps) {
   return (
-    <div className="rounded-2xl bg-surface p-4 shadow-glow">
+    <div className="rounded-2xl bg-surface p-4 shadow-glow transition hover:shadow-card">
       <div className="flex items-center gap-2">
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-full text-base"
-          style={{ backgroundColor: iconBg }}
-        >
-          {icon}
-        </span>
+        <IconBadge icon={icon} color={iconColor} bg={iconBg} className="h-8 w-8" />
         <p className="text-xs font-medium uppercase tracking-wide text-inkSoft">
           {label}
         </p>

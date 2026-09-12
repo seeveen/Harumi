@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { commandCategories } from "@/lib/commands";
+import { Icons } from "@/components/Icons";
 
 export default function ComandosPage() {
   const [query, setQuery] = useState("");
@@ -46,49 +47,56 @@ export default function ComandosPage() {
           >
             Todas
           </button>
-          {commandCategories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                activeCategory === cat.id
-                  ? "bg-sakura text-bg"
-                  : "bg-surface text-inkSoft hover:text-rose"
-              }`}
-            >
-              {cat.emoji} {cat.label}
-            </button>
-          ))}
+          {commandCategories.map((cat) => {
+            const Icon = Icons[cat.icon];
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition ${
+                  activeCategory === cat.id
+                    ? "bg-sakura text-bg"
+                    : "bg-surface text-inkSoft hover:text-rose"
+                }`}
+              >
+                <Icon className="h-4 w-4" strokeWidth={2.25} />
+                {cat.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="mt-10 space-y-10">
-        {filtered.map((cat) => (
-          <div key={cat.id}>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl">{cat.emoji}</span>
-              <p className="font-display text-xl text-rose">{cat.label}</p>
-            </div>
-            <p className="mt-1 text-sm text-inkSoft">{cat.description}</p>
+        {filtered.map((cat) => {
+          const Icon = Icons[cat.icon];
+          return (
+            <div key={cat.id}>
+              <div className="flex items-center gap-2">
+                <Icon className="h-6 w-6 text-sakura" strokeWidth={2.25} />
+                <p className="font-display text-xl text-rose">{cat.label}</p>
+              </div>
+              <p className="mt-1 text-sm text-inkSoft">{cat.description}</p>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {cat.commands.map((cmd) => (
-                <div
-                  key={cmd.name}
-                  className="rounded-2xl bg-surface p-4 shadow-glow"
-                >
-                  <p className="font-mono text-sm font-semibold text-sakura">
-                    {cmd.name}
-                  </p>
-                  <p className="mt-1 text-sm text-inkSoft">
-                    {cmd.description}
-                  </p>
-                  <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>
-                </div>
-              ))}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {cat.commands.map((cmd) => (
+                  <div
+                    key={cmd.name}
+                    className="rounded-2xl bg-surface p-4 shadow-glow"
+                  >
+                    <p className="font-mono text-sm font-semibold text-sakura">
+                      {cmd.name}
+                    </p>
+                    <p className="mt-1 text-sm text-inkSoft">
+                      {cmd.description}
+                    </p>
+                    <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {filtered.length === 0 && (
           <p className="text-inkSoft">

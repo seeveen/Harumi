@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { getAvatarUrl } from "@/lib/discord";
+import { Icons } from "@/components/Icons";
 
 export const revalidate = 0; // sempre busca dados reais e atuais
 
@@ -23,9 +24,10 @@ export default async function RankingPage() {
 
       <div className="mt-8 space-y-3">
         {top.length === 0 && (
-          <p className="rounded-2xl bg-surface p-6 text-inkSoft shadow-glow">
+          <p className="flex items-center gap-2 rounded-2xl bg-surface p-6 text-inkSoft shadow-glow">
+            <Icons.flower className="h-5 w-5 shrink-0 text-sakura" strokeWidth={2.25} />
             Ainda ninguém entrou. Seja a primeira pessoa a aparecer aqui —
-            entre com o Discord no canto superior direito. 🌸
+            entre com o Discord no canto superior direito.
           </p>
         )}
 
@@ -50,8 +52,9 @@ export default async function RankingPage() {
               </p>
               <p className="text-xs text-inkSoft">nível {member.economy?.level}</p>
             </div>
-            <p className="font-display text-lg text-sakura">
-              {member.economy?.balance} 🪙
+            <p className="flex items-center gap-1.5 font-display text-lg text-sakura">
+              {member.economy?.balance}
+              <Icons.coin className="h-4 w-4" strokeWidth={2.25} />
             </p>
           </div>
         ))}
