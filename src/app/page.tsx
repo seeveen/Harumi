@@ -1,69 +1,11 @@
 import Link from "next/link";
 import { HarumiMascot } from "@/components/HarumiMascot";
-import { FeatureCard } from "@/components/FeatureCard";
 import { StatInline } from "@/components/StatInline";
-import { Icons, type IconName } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
+import { CandyTrail } from "@/components/CandyTrail";
 import { getBotStats } from "@/lib/stats";
 
 export const revalidate = 0;
-
-const features: {
-  id: string;
-  title: string;
-  icon: IconName;
-  color: string;
-  area: string;
-  featured?: boolean;
-  text: string;
-  example: string;
-}[] = [
-  {
-    id: "economia",
-    title: "Economia",
-    icon: "coin",
-    color: "#FF6FB8",
-    area: "eco",
-    featured: true,
-    text: "Moedas, banco, apostas e trabalho — os membros constroem uma economia de verdade dentro do servidor, com ranking próprio.",
-    example: "/trabalhar",
-  },
-  {
-    id: "moderacao",
-    title: "Moderação",
-    icon: "shield",
-    color: "#6EE7C8",
-    area: "mod",
-    text: "Bans, mutes, avisos e automod, sem complicação.",
-    example: "/automod ativar",
-  },
-  {
-    id: "interacao",
-    title: "Interação",
-    icon: "heart",
-    color: "#FFB6DC",
-    area: "int",
-    text: "Abraços, casamentos e perfis para os membros interagirem.",
-    example: "/casar",
-  },
-  {
-    id: "diversao",
-    title: "Diversão",
-    icon: "dice",
-    color: "#C76BFF",
-    area: "div",
-    text: "Jogos, memes e brincadeiras para animar qualquer canal.",
-    example: "/shipp",
-  },
-  {
-    id: "utilidades",
-    title: "Utilidades",
-    icon: "gift",
-    color: "#6EE7C8",
-    area: "uti",
-    text: "Lembretes, enquetes e informações do servidor sempre à mão.",
-    example: "/enquete",
-  },
-];
 
 export default async function HomePage() {
   const stats = await getBotStats();
@@ -120,23 +62,10 @@ export default async function HomePage() {
           <p className="font-display text-2xl text-ink">O que ela faz por você</p>
         </div>
         <p className="mt-2 max-w-md text-sm text-inkSoft">
-          Cinco frentes, um bot só — passe o mouse pra ver um comando de
-          exemplo de cada uma.
+          Desce a trilha com a Harumi e descobre um docinho de comando
+          em cada parada.
         </p>
-        <div className="feature-bento mt-8">
-          {features.map((feature) => (
-            <FeatureCard
-              key={feature.id}
-              icon={feature.icon}
-              color={feature.color}
-              title={feature.title}
-              text={feature.text}
-              example={feature.example}
-              area={feature.area}
-              featured={feature.featured}
-            />
-          ))}
-        </div>
+        <CandyTrail />
       </section>
     </div>
   );
