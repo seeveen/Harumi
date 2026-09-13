@@ -43,7 +43,10 @@ export default function ComandosPage() {
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <div className="relative w-full sm:max-w-xs">
-          <Icons.search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-inkSoft" strokeWidth={2.25} />
+          <Icons.search
+            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-inkSoft"
+            strokeWidth={2.25}
+          />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -54,6 +57,7 @@ export default function ComandosPage() {
         <div className="flex flex-wrap gap-2">
           <Chip
             label="Todas"
+            icon="grid"
             count={totalComandos}
             active={activeCategory === "todas"}
             onClick={() => setActiveCategory("todas")}
@@ -62,6 +66,7 @@ export default function ComandosPage() {
             <Chip
               key={cat.id}
               label={cat.label}
+              icon={cat.icon}
               count={cat.commands.length}
               active={activeCategory === cat.id}
               onClick={() => setActiveCategory(cat.id)}
@@ -89,8 +94,17 @@ export default function ComandosPage() {
             >
               <div className="grid gap-3 sm:grid-cols-2">
                 {cat.commands.map((cmd) => (
-                  <div key={cmd.name} className="rounded-2xl border border-line bg-surfaceHi p-4">
-                    <p className="font-mono text-sm font-semibold text-sakura">{cmd.name}</p>
+                  <div
+                    key={cmd.name}
+                    className="group relative overflow-hidden rounded-2xl border border-line bg-surfaceHi p-4 pl-5 transition hover:-translate-y-0.5 hover:border-white/10"
+                  >
+                    <span
+                      className="absolute inset-y-3 left-0 w-1 rounded-r-full transition-all group-hover:inset-y-2"
+                      style={{ backgroundColor: palette.color }}
+                    />
+                    <p className="font-mono text-sm font-semibold" style={{ color: palette.color }}>
+                      {cmd.name}
+                    </p>
                     <p className="mt-1 text-sm text-inkSoft">{cmd.description}</p>
                     <p className="mt-2 text-xs text-inkSoft/70">{cmd.usage}</p>
                   </div>

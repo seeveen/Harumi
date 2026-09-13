@@ -19,7 +19,7 @@ const config: Config = {
         inkSoft: "#A99BB3",
       },
       fontFamily: {
-        display: ["var(--font-baloo)"],
+        display: ["var(--font-sora)"],
         body: ["var(--font-jakarta)"],
       },
       borderRadius: {

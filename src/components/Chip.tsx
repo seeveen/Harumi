@@ -1,12 +1,16 @@
+import { Icons, type IconName } from "@/components/Icons";
+
 type ChipProps = {
   label: string;
   count?: number;
   active?: boolean;
+  icon?: IconName;
   onClick?: () => void;
 };
 
-/** Filtro em formato de pílula, com contador opcional. */
-export function Chip({ label, count, active, onClick }: ChipProps) {
+/** Filtro em formato de pílula, com ícone e contador opcionais. */
+export function Chip({ label, count, active, icon, onClick }: ChipProps) {
+  const Icon = icon ? Icons[icon] : null;
   return (
     <button
       type="button"
@@ -17,6 +21,7 @@ export function Chip({ label, count, active, onClick }: ChipProps) {
           : "border border-line bg-surface text-inkSoft hover:text-rose"
       }`}
     >
+      {Icon && <Icon className="h-3.5 w-3.5" strokeWidth={2.5} />}
       {label}
       {typeof count === "number" && (
         <span

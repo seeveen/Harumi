@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { HarumiMascot } from "@/components/HarumiMascot";
-import { StatCard } from "@/components/StatCard";
-import { Panel } from "@/components/Panel";
 import { FeatureCard } from "@/components/FeatureCard";
+import { StatInline } from "@/components/StatInline";
 import { Icons, type IconName } from "@/components/Icons";
-import { commandCategories } from "@/lib/commands";
-import { prisma } from "@/lib/prisma";
+import { getBotStats } from "@/lib/stats";
 
 export const revalidate = 0;
 
@@ -13,70 +11,60 @@ const features: {
   id: string;
   title: string;
   icon: IconName;
-  iconColor: string;
-  iconBg: string;
+  color: string;
   span: string;
   text: string;
+  example: string;
 }[] = [
   {
     id: "economia",
     title: "Economia",
     icon: "coin",
-    iconColor: "#FF6FB8",
-    iconBg: "#FF6FB81F",
+    color: "#FF6FB8",
     span: "md:col-span-2",
     text: "Moedas, banco, apostas e trabalho — os membros constroem uma economia de verdade dentro do servidor, com ranking próprio.",
+    example: "/trabalhar",
   },
   {
     id: "moderacao",
     title: "Moderação",
     icon: "shield",
-    iconColor: "#6EE7C8",
-    iconBg: "#6EE7C81F",
+    color: "#6EE7C8",
     span: "",
     text: "Bans, mutes, avisos e automod, sem complicação.",
+    example: "/automod ativar",
   },
   {
     id: "interacao",
     title: "Interação",
     icon: "heart",
-    iconColor: "#FFB6DC",
-    iconBg: "#FFB6DC1F",
+    color: "#FFB6DC",
     span: "",
     text: "Abraços, casamentos e perfis para os membros interagirem.",
+    example: "/casar",
   },
   {
     id: "diversao",
     title: "Diversão",
     icon: "dice",
-    iconColor: "#C76BFF",
-    iconBg: "#C76BFF1F",
+    color: "#C76BFF",
     span: "",
     text: "Jogos, memes e brincadeiras para animar qualquer canal.",
+    example: "/shipp",
   },
   {
     id: "utilidades",
     title: "Utilidades",
     icon: "gift",
-    iconColor: "#6EE7C8",
-    iconBg: "#6EE7C81F",
+    color: "#6EE7C8",
     span: "md:col-span-2",
     text: "Lembretes, enquetes e informações do servidor sempre à mão.",
+    example: "/enquete",
   },
 ];
 
 export default async function HomePage() {
-  const totalComandos = commandCategories.reduce(
-    (sum, cat) => sum + cat.commands.length,
-    0
-  );
-
-  const [totalMembros, economia] = await Promise.all([
-    prisma.user.count(),
-    prisma.economyProfile.aggregate({ _sum: { balance: true } }),
-  ]);
-
-  const moedasEmCirculacao = economia._sum.balance ?? 0;
+  const stats = await getBotStats();
 
   return (
     <div>
@@ -104,52 +92,10 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 max-w-md">
-            <Panel
-              icon="grid"
-              title="Resumo da Harumi"
-              subtitle="Atualizado agora mesmo"
-              className="grad-border-soft !bg-surface p-4"
-              actions={
-                <span className="flex items-center gap-1.5 rounded-full bg-mint/10 px-2.5 py-1 text-xs font-medium text-mint">
-                  <Icons.live className="h-3 w-3" strokeWidth={2.5} />
-                  ao vivo
-                </span>
-              }
-            >
-              <div className="grid grid-cols-2 gap-3">
-                <StatCard
-                  icon="grid"
-                  iconColor="#FF6FB8"
-                  iconBg="#FF6FB81F"
-                  label="Comandos"
-                  value={String(totalComandos)}
-                />
-                <StatCard
-                  icon="flower"
-                  iconColor="#6EE7C8"
-                  iconBg="#6EE7C81F"
-                  label="Categorias"
-                  value={String(commandCategories.length)}
-                  valueColor="text-mint"
-                />
-                <StatCard
-                  icon="users"
-                  iconColor="#FFB6DC"
-                  iconBg="#FFB6DC1F"
-                  label="Membros no site"
-                  value={String(totalMembros)}
-                />
-                <StatCard
-                  icon="coin"
-                  iconColor="#C76BFF"
-                  iconBg="#C76BFF1F"
-                  label="Moedas em circulação"
-                  value={moedasEmCirculacao.toLocaleString("pt-BR")}
-                  valueColor="text-rose"
-                />
-              </div>
-            </Panel>
+          <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <StatInline icon="users" value={stats.usuarios} label="usuários" />
+            <StatInline icon="grid" value={stats.servidores} label="servidores" />
+            <StatInline icon="bolt" value={stats.comandos} label="comandos" />
           </div>
         </div>
 
@@ -167,15 +113,23 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
-        <p className="font-display text-2xl text-ink">O que ela faz por você</p>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="flex items-center gap-2">
+          <Icons.flower className="h-5 w-5 text-sakura" strokeWidth={2.25} />
+          <p className="font-display text-2xl text-ink">O que ela faz por você</p>
+        </div>
+        <p className="mt-2 max-w-md text-sm text-inkSoft">
+          Cinco frentes, um bot só — passe o mouse pra ver um comando de
+          exemplo de cada uma.
+        </p>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {features.map((feature) => (
             <FeatureCard
               key={feature.id}
               icon={feature.icon}
-              color={feature.iconColor}
+              color={feature.color}
               title={feature.title}
               text={feature.text}
+              example={feature.example}
               className={feature.span}
             />
           ))}
