@@ -12,7 +12,8 @@ const features: {
   title: string;
   icon: IconName;
   color: string;
-  span: string;
+  area: string;
+  featured?: boolean;
   text: string;
   example: string;
 }[] = [
@@ -21,7 +22,8 @@ const features: {
     title: "Economia",
     icon: "coin",
     color: "#FF6FB8",
-    span: "md:col-span-2",
+    area: "eco",
+    featured: true,
     text: "Moedas, banco, apostas e trabalho — os membros constroem uma economia de verdade dentro do servidor, com ranking próprio.",
     example: "/trabalhar",
   },
@@ -30,7 +32,7 @@ const features: {
     title: "Moderação",
     icon: "shield",
     color: "#6EE7C8",
-    span: "",
+    area: "mod",
     text: "Bans, mutes, avisos e automod, sem complicação.",
     example: "/automod ativar",
   },
@@ -39,7 +41,7 @@ const features: {
     title: "Interação",
     icon: "heart",
     color: "#FFB6DC",
-    span: "",
+    area: "int",
     text: "Abraços, casamentos e perfis para os membros interagirem.",
     example: "/casar",
   },
@@ -48,7 +50,7 @@ const features: {
     title: "Diversão",
     icon: "dice",
     color: "#C76BFF",
-    span: "",
+    area: "div",
     text: "Jogos, memes e brincadeiras para animar qualquer canal.",
     example: "/shipp",
   },
@@ -57,7 +59,7 @@ const features: {
     title: "Utilidades",
     icon: "gift",
     color: "#6EE7C8",
-    span: "md:col-span-2",
+    area: "uti",
     text: "Lembretes, enquetes e informações do servidor sempre à mão.",
     example: "/enquete",
   },
@@ -121,7 +123,7 @@ export default async function HomePage() {
           Cinco frentes, um bot só — passe o mouse pra ver um comando de
           exemplo de cada uma.
         </p>
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <div className="feature-bento mt-8">
           {features.map((feature) => (
             <FeatureCard
               key={feature.id}
@@ -130,7 +132,8 @@ export default async function HomePage() {
               title={feature.title}
               text={feature.text}
               example={feature.example}
-              className={feature.span}
+              area={feature.area}
+              featured={feature.featured}
             />
           ))}
         </div>

@@ -96,3 +96,27 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* bento fixo pra seção de recursos — evita o problema de spans que não
+   fecham a conta e deixam buraco no grid (2+1+1+1+2 numa grade de 3). */
+.feature-bento {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .feature-bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      "eco eco mod"
+      "eco eco int"
+      "div uti uti";
+  }
+  .feature-bento > [data-area="eco"] { grid-area: eco; }
+  .feature-bento > [data-area="mod"] { grid-area: mod; }
+  .feature-bento > [data-area="int"] { grid-area: int; }
+  .feature-bento > [data-area="div"] { grid-area: div; }
+  .feature-bento > [data-area="uti"] { grid-area: uti; }
+}
