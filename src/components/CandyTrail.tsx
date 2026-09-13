@@ -190,7 +190,10 @@ export function CandyTrail() {
 
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      const raw = (vh - rect.top) / (rect.height + vh);
+      // progresso = qual pedaço da trilha está no meio da tela agora —
+      // assim o avatar acompanha junto o que você está vendo, em vez de
+      // só bater 100% quando a seção inteira já saiu da tela
+      const raw = (vh / 2 - rect.top) / rect.height;
       const p = Math.min(1, Math.max(0, raw));
       setProgress(p);
 
